@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Basic Layout Example</title>
+        <link href="../Assets/plugins/DataTables-1.10.12/media/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="../Assets/plugins/DataTables-1.10.12/FixedColumns-3.2.2/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+<link href="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/css/ui.jqgrid-bootstrap-ui.css" rel="stylesheet" />
+    <link href="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/css/ui.jqgrid-bootstrap.css" rel="stylesheet" />
+    <link href="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/css/ui.jqgrid.css" rel="stylesheet" />
+    <link href="../Assets/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Assets/css/jquery-ui.css" rel="stylesheet" />
+	<script type="text/javascript" src="../Assets/js/jquery.js"></script>
+    <script src="~/Assets/js/jquery-ui.js"></script>
+    <script src="../Assets/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../Assets/js/jquery.layout.js"></script>
+    <script src="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/js/i18n/grid.locale-cn.js"></script>
+    <script src="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/src/jquery.jqGrid.js"></script>
+    <script src="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/plugins/jquery.tablednd.js"></script>
+    <script src="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/plugins/tbltogrid.js"></script>
+    <script src="../Assets/plugins/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript">
+	    $.jgrid.defaults.width = "100%";
+	    $.jgrid.defaults.responsive = true;
+	    $.jgrid.defaults.styleUI = 'Bootstrap';
+	    $.jgrid.defaults.mtype = "post";
+
+	    $(document).ready(function () {
+	        $("body").layout({ applyDemoStyles: true });
+	    });
+	</script>
+
+</head>
+<body>
+
+<div class="ui-layout-center">  
+    
+        <div class="tab_container" style="height: 100%;" id="divTabContent">
+            <div id="divMain" class="tab_content" style="height: 100%;">
+                <iframe src="" id="ifmContent" style="height: 100%;width: 100%;"></iframe>
+            </div>
+        </div>
+    
+	
+</div>
+<div class="ui-layout-north">农业面源污染基本信息</div>
+<div class="ui-layout-south">Powered by John</div>
+<div class="ui-layout-west">
+    <ul id="menu">
+
+  <li tag="IndexAP_LiveStockBreeding"><div>畜禽养殖</div></li>
+  <li tag="IndexAP_ArgricultureLive"><div>农村生活</div></li>
+          <li tag="IndexAP_AqualCulture"><div>水产养殖</div></li>
+          <li tag="IndexAP_PlantNoPointSource"><div>种植业源</div></li>
+    </ul>
+    </div>
+     <script>
+         $(function () {
+             $("#menu").menu();
+             $("#ifmContent").attr("src", "/Home/IndexAP_PlantNoPointSource");
+             $("#menu li").click(function (e) {
+                 $("#ifmContent").attr("src", "/Home/"+$(this).attr("tag"));
+             });
+         });
+  </script>
+  <style>
+  .ui-menu { width: 150px; }
+  </style>
+</body>
+</html>
