@@ -1,0 +1,9 @@
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\bin\Debug\Dao.dll.config
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\bin\Debug\Dao.dll
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\bin\Debug\Dao.pdb
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\bin\Debug\EntityFramework.dll
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\bin\Debug\EntityFramework.xml
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\bin\Debug\zh-Hans\EntityFramework.resources.dll
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\obj\Debug\Dao.dll
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\obj\Debug\Dao.pdb
+C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\obj\Debug\Dao.csprojResolveAssemblyReference.cache

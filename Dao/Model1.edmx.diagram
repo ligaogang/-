@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="06d24bb4a9644d1887de89240e832cfa" Name="关系图1" ZoomLevel="88">
+        <EntityTypeShape EntityType="AugricultureNonPointSourcePollutionModel.AP_AqualCulture" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AugricultureNonPointSourcePollutionModel.AP_Area" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AugricultureNonPointSourcePollutionModel.AP_ArgricultureLive" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AugricultureNonPointSourcePollutionModel.AP_LiveStockBreeding" Width="1.5" PointX="3" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AugricultureNonPointSourcePollutionModel.AP_PlantNoPointSource" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
+        <AssociationConnector Association="AugricultureNonPointSourcePollutionModel.FK_AP_AQUAL_REFERENCE_AP_AREA" ManuallyRouted="false" />
+        <AssociationConnector Association="AugricultureNonPointSourcePollutionModel.FK_AP_ARGRI_REFERENCE_AP_AREA" ManuallyRouted="false" />
+        <AssociationConnector Association="AugricultureNonPointSourcePollutionModel.FK_AP_LIVES_REFERENCE_AP_AREA" ManuallyRouted="false" />
+        <AssociationConnector Association="AugricultureNonPointSourcePollutionModel.FK_AP_PLANT_REFERENCE_AP_AREA" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

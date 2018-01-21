@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AugricultureNonPointSourcePollutionModelStoreContainer" CdmEntityContainer="AugricultureNonPointSourcePollutionEntities2">
+    <EntitySetMapping Name="AP_AqualCulture">
+      <EntityTypeMapping TypeName="AugricultureNonPointSourcePollutionModel.AP_AqualCulture">
+        <MappingFragment StoreEntitySet="AP_AqualCulture">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="LastModifyUser" ColumnName="LastModifyUser" />
+          <ScalarProperty Name="LastModifyTime" ColumnName="LastModifyTime" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="FreshWaterFish" ColumnName="FreshWaterFish" />
+          <ScalarProperty Name="Crab" ColumnName="Crab" />
+          <ScalarProperty Name="Shrimp" ColumnName="Shrimp" />
+          <ScalarProperty Name="ShellFish" ColumnName="ShellFish" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_Area">
+      <EntityTypeMapping TypeName="AugricultureNonPointSourcePollutionModel.AP_Area">
+        <MappingFragment StoreEntitySet="AP_Area">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="LastModifyUser" ColumnName="LastModifyUser" />
+          <ScalarProperty Name="LastModifyTime" ColumnName="LastModifyTime" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_ArgricultureLive">
+      <EntityTypeMapping TypeName="AugricultureNonPointSourcePollutionModel.AP_ArgricultureLive">
+        <MappingFragment StoreEntitySet="AP_ArgricultureLive">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="LastModifyUser" ColumnName="LastModifyUser" />
+          <ScalarProperty Name="LastModfyTime" ColumnName="LastModfyTime" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="RuralPopulation" ColumnName="RuralPopulation" />
+          <ScalarProperty Name="ValueOfAgricultureProduct" ColumnName="ValueOfAgricultureProduct" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_LiveStockBreeding">
+      <EntityTypeMapping TypeName="AugricultureNonPointSourcePollutionModel.AP_LiveStockBreeding">
+        <MappingFragment StoreEntitySet="AP_LiveStockBreeding">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="CreatetTime" ColumnName="CreatetTime" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="LastModifyTime" ColumnName="LastModifyTime" />
+          <ScalarProperty Name="LastModifyUser" ColumnName="LastModifyUser" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="ALargeAnimal" ColumnName="ALargeAnimal" />
+          <ScalarProperty Name="Pig" ColumnName="Pig" />
+          <ScalarProperty Name="sheep" ColumnName="sheep" />
+          <ScalarProperty Name="poultry" ColumnName="poultry" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_PlantNoPointSource">
+      <EntityTypeMapping TypeName="AugricultureNonPointSourcePollutionModel.AP_PlantNoPointSource">
+        <MappingFragment StoreEntitySet="AP_PlantNoPointSource">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="LastModifyUser" ColumnName="LastModifyUser" />
+          <ScalarProperty Name="LastModifyTime" ColumnName="LastModifyTime" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="ChemicalFertilizer" ColumnName="ChemicalFertilizer" />
+          <ScalarProperty Name="Nitrogenours" ColumnName="Nitrogenours" />
+          <ScalarProperty Name="PhosPhticFertilizer" ColumnName="PhosPhticFertilizer" />
+          <ScalarProperty Name="ComplexFertilizer" ColumnName="ComplexFertilizer" />
+          <ScalarProperty Name="Vegetable" ColumnName="Vegetable" />
+          <ScalarProperty Name="SeedArea" ColumnName="SeedArea" />
+          <ScalarProperty Name="GrainOutput" ColumnName="GrainOutput" />
+          <ScalarProperty Name="Rice" ColumnName="Rice" />
+          <ScalarProperty Name="Millet" ColumnName="Millet" />
+          <ScalarProperty Name="Mize" ColumnName="Mize" />
+          <ScalarProperty Name="Potato" ColumnName="Potato" />
+          <ScalarProperty Name="Sorghum" ColumnName="Sorghum" />
+          <ScalarProperty Name="Wheat" ColumnName="Wheat" />
+          <ScalarProperty Name="Bean" ColumnName="Bean" />
+          <ScalarProperty Name="OilPlant" ColumnName="OilPlant" />
+          <ScalarProperty Name="Pinut" ColumnName="Pinut" />
+          <ScalarProperty Name="Sesame" ColumnName="Sesame" />
+          <ScalarProperty Name="SunFlower" ColumnName="SunFlower" />
+          <ScalarProperty Name="Cottom" ColumnName="Cottom" />
+          <ScalarProperty Name="OilseedRaoe" ColumnName="OilseedRaoe" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
