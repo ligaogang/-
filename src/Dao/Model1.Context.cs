@@ -32,5 +32,6 @@ namespace Dao
         public DbSet<AP_PlantNoPointSource> AP_PlantNoPointSource { get; set; }
         public DbSet<AP_LiveStockBreedingCoeffecient> AP_LiveStockBreedingCoeffecient { get; set; }
         public DbSet<AP_PullutionSum> AP_PullutionSum { get; set; }
+        public DbSet<SumPullution> SumPullution { get; set; }
     }
 }

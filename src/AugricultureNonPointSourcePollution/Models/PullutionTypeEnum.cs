@@ -40,5 +40,6 @@ namespace AugricultureNonPointSourcePollution.Models
         /// 网箱养殖
         /// </summary>
         NetBoxCulture = 0x00100000,
+
     }
 }

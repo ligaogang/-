@@ -46,7 +46,7 @@ namespace AugricultureNonPointSourcePollution.Controllers
                 double sumOfN = sumOfPhosPhticFertilizer * NofPfertilizer  + sumOfNitrogenours * NofNfertilizer;
                 double sumOfP = sumOfPhosPhticFertilizer * PofPfertilizer +   sumOfNitrogenours * NofNfertilizer;
                 double sumOfCod = 0;
-                return Json(new { Result = true, Entity = new PullutionReportModel { OutPutOfCo = sumOfCod, OutPutOfN = sumOfN, OutPutOfP = sumOfP, PullutionType = (int)PullutionTypeEnum.LiveStockBreeding } }, JsonRequestBehavior.AllowGet);
+                return Json(new { Result = true, Entity = new PullutionReportModel { OutPutOfCo = sumOfCod, OutPutOfN = sumOfN, OutPutOfP = sumOfP, PullutionType = (int)PullutionTypeEnum.PlantNoPointSource } }, JsonRequestBehavior.AllowGet);
             }
         }
         public ActionResult CaculatePlantNoPointSourcePullution()
@@ -109,7 +109,7 @@ namespace AugricultureNonPointSourcePollution.Controllers
                 double sumOfN = sumOfSorghum * Nofsorghum + sumOfRice * NofRice + sumOfMize * NofCorn + sumOfWheat * NofWheat + sumOfBean * NofBean + sumOfCottom * NofCotton + sumOfOilseedRaoe * NofOilSeed + sumOfPinut * NofPinut + sumOfPotato*NofPotato;
                 double sumOfP = sumOfSorghum * Pofsorghum + sumOfRice * PofRice + sumOfMize * PofCorn + sumOfWheat * PofWheat + sumOfBean * PofBean + sumOfCottom * PofCotton + sumOfOilseedRaoe * PofOilSeed + sumOfPinut * PofPinut + sumOfPotato * PofPotato;
                 double sumOfCod = sumOfSorghum * CoOfsorghum + sumOfRice * CoOfRice + sumOfMize * CoOfCorn + sumOfWheat * CoOfWheat + sumOfBean * CoOfBean + sumOfCottom * CoOfCotton + sumOfOilseedRaoe * CoOfOilSeed + sumOfPinut * CoOfPinut + sumOfPotato * CoOfPotato;
-                return Json(new { Result = true, Entity = new PullutionReportModel { OutPutOfCo = sumOfCod, OutPutOfN = sumOfN, OutPutOfP = sumOfP, PullutionType = (int)PullutionTypeEnum.LiveStockBreeding } }, JsonRequestBehavior.AllowGet);
+                return Json(new { Result = true, Entity = new PullutionReportModel { OutPutOfCo = sumOfCod, OutPutOfN = sumOfN, OutPutOfP = sumOfP, PullutionType = (int)PullutionTypeEnum.PlantNoPointSource } }, JsonRequestBehavior.AllowGet);
             }
         }
         public ActionResult GetAP_PlantNoPointSourceList(int Year)
@@ -132,6 +132,39 @@ namespace AugricultureNonPointSourcePollution.Controllers
             var result = query.Select(c => c.obj).ToList();
             return Json(new { Entity = result, Result = true }, JsonRequestBehavior.AllowGet);
 
+        }
+        public ActionResult SaveOrUpdateSumPullution(string model) { 
+            using(var ctx=GetDbContext()){
+                var SumPullution=ctx.Set<SumPullution>();
+                List<SumPullution> remainSavedList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<SumPullution>>(model);
+                remainSavedList.ForEach(c =>
+                {
+
+                    var OldEntity = ctx.Set<SumPullution>().Where(k => k.PullutionType == c.PullutionType).FirstOrDefault();
+                    if (OldEntity == null)
+                    {
+                        c.LastModifyTime = DateTime.Now;
+                        c.LastModifyUser = Guid.Empty;
+                        c.CreateTime = DateTime.Now;
+                        c.CreateUser = Guid.Empty;
+                        c.Status = 0;
+                        c.Flag = 0;
+                        c.Code = "";
+                        c.Id = Guid.NewGuid();
+                        ctx.Set<SumPullution>().Add(c);
+                    }
+                    else {
+                        OldEntity.NSum = c.NSum;
+                        OldEntity.PSum = c.PSum;
+                        OldEntity.CoSum = c.CoSum;
+                        OldEntity.LastModifyTime = DateTime.Now;
+                        OldEntity.LastModifyUser = Guid.Empty;
+                        ctx.Entry(OldEntity).State = EntityState.Modified;
+                    }
+                });
+                ctx.SaveChanges();
+                return Json(new { Content = "保存成功", Result = true }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

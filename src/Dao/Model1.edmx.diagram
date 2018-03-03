@@ -16,6 +16,7 @@
         <AssociationConnector Association="AugricultureNonPointSourcePollutionModel.FK_AP_PLANT_REFERENCE_AP_AREA" ManuallyRouted="false" />
         <EntityTypeShape EntityType="AugricultureNonPointSourcePollutionModel.AP_LiveStockBreedingCoeffecient" Width="1.5" PointX="1.8941962019979004" PointY="6.093711513138242" />
         <EntityTypeShape EntityType="AugricultureNonPointSourcePollutionModel.AP_PullutionSum" Width="1.5" PointX="5.661724836408033" PointY="27.496197594095115" />
+        <EntityTypeShape EntityType="AugricultureNonPointSourcePollutionModel.SumPullution" Width="1.5" PointX="5.625" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

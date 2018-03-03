@@ -185,6 +185,7 @@
     <Compile Include="Controllers\AP_ArgricultureLiveController.cs" />
     <Compile Include="Controllers\AP_LiveStockBreedingController.cs" />
     <Compile Include="Controllers\AP_PlantNoPointSourceController.cs" />
+    <Compile Include="Controllers\AP_PullutionDistributeController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -192,6 +193,7 @@
     </Compile>
     <Compile Include="Models\DicTypeHelperr.cs" />
     <Compile Include="Models\DropDownListItem.cs" />
+    <Compile Include="Models\PullutionDistribute.cs" />
     <Compile Include="Models\PullutionReportModel.cs" />
     <Compile Include="Models\PullutionTypeEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -720,6 +722,7 @@
     <Content Include="Assets\js\custom.form.dropdownlist.js" />
     <Content Include="Assets\js\custom.form.fill.js" />
     <Content Include="Assets\js\debug.js" />
+    <Content Include="Assets\js\echarts.min.js" />
     <Content Include="Assets\js\jquery-2.js" />
     <Content Include="Assets\js\jquery-ui.js" />
     <Content Include="Assets\js\jquery.js" />
@@ -1688,6 +1691,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\AP_PlantNoPointSource\FetilizerReport.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AP_PullutionDistribute\IndexAP_PullutionDistribute.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

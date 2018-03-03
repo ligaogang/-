@@ -51,7 +51,7 @@ namespace AugricultureNonPointSourcePollution.Controllers
                 double sumOfN = sumOfBigStock * NofFreshFish + sumOfPig * Nofshrimp + sumOfSheep * NofCrab + sumOfAnimal * Nofshell;
                 double sumOfP = sumOfBigStock * PofFreshFish + sumOfPig * Pofshrimp + sumOfSheep * PofCrab + sumOfAnimal * Pofshell;
                 double sumOfCod = sumOfBigStock * CoOfFreshFish + sumOfPig * CoOfshrimp + sumOfSheep * CoOfCrab + sumOfAnimal * CoOfshell;
-                return Json(new { Result = true, Entity = new PullutionReportModel { OutPutOfCo = sumOfCod, OutPutOfN = sumOfN, OutPutOfP = sumOfP, PullutionType = (int)PullutionTypeEnum.LiveStockBreeding } }, JsonRequestBehavior.AllowGet);
+                return Json(new { Result = true, Entity = new PullutionReportModel { OutPutOfCo = sumOfCod, OutPutOfN = sumOfN, OutPutOfP = sumOfP, PullutionType = (int)PullutionTypeEnum.AqualCulture } }, JsonRequestBehavior.AllowGet);
             }
         }
         public ActionResult GetAP_AqualCulture(int Year)

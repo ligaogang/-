@@ -8,6 +8,7 @@
     <EntitySet Name="AP_LiveStockBreedingCoeffecient" EntityType="AugricultureNonPointSourcePollutionModel.Store.AP_LiveStockBreedingCoeffecient" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AP_PlantNoPointSource" EntityType="AugricultureNonPointSourcePollutionModel.Store.AP_PlantNoPointSource" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AP_PullutionSum" EntityType="AugricultureNonPointSourcePollutionModel.Store.AP_PullutionSum" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SumPullution" EntityType="AugricultureNonPointSourcePollutionModel.Store.SumPullution" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_AP_AQUAL_REFERENCE_AP_AREA" Association="AugricultureNonPointSourcePollutionModel.Store.FK_AP_AQUAL_REFERENCE_AP_AREA">
       <End Role="AP_Area" EntitySet="AP_Area" />
       <End Role="AP_AqualCulture" EntitySet="AP_AqualCulture" />
@@ -171,6 +172,23 @@
     <Property Name="Status" Type="int" Nullable="false" />
     <Property Name="Flag" Type="int" Nullable="false" />
     <Property Name="Code" Type="nvarchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="SumPullution">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PullutionType" Type="int" Nullable="false" />
+    <Property Name="NSum" Type="float" />
+    <Property Name="PSum" Type="float" />
+    <Property Name="CoSum" Type="float" />
+    <Property Name="CreateUser" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" Nullable="false" />
+    <Property Name="LastModifyUser" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="LastModifyTime" Type="datetime" Nullable="false" />
+    <Property Name="Flag" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="Code" Type="varchar" Nullable="false" MaxLength="100" />
   </EntityType>
   <Association Name="FK_AP_AQUAL_REFERENCE_AP_AREA">
     <End Role="AP_Area" Type="AugricultureNonPointSourcePollutionModel.Store.AP_Area" Multiplicity="0..1" />

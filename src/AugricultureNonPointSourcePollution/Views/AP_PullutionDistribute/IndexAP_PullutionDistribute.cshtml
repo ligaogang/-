@@ -1,0 +1,194 @@
+﻿@{
+    ViewBag.Title = "IndexAP_PullutionDistribute";
+    Layout = null;
+}
+<script src="~/Assets/js/jquery.js"></script>
+<script src="~/Assets/js/echarts.min.js"></script>
+ 
+                            <div style="width:100%;height:400px;">
+             <div style="width: 600px;height:400px;" id="NDistribute"></div>
+
+
+                                </div>
+
+
+                            <div style="width:100%;height:400px;">
+                                <div style="width: 600px;height:400px;" id="PDistribute"></div>
+                                </div>
+
+                       
+                            <div style="width:100%;height:400px;">
+                                <div style="width: 600px;height:400px;" id="CodDistribute"></div>
+                                </div>
+
+
+<script>
+    function Save2Num(data) {
+        var NumStr = Number(data).toFixed(2);
+        return parseFloat(NumStr);
+    }
+    function LoadEchartOfNDistribute(entity, Div, title) {
+        var sum = entity.AqualCulture + entity.ArgricultureLive + entity.LiveStockBreeding + entity.PlantNoPointSource;
+        var myChart = echarts.init(document.getElementById(Div));
+        //option = {
+        //    backgroundColor: '#2c343c',
+
+        //    title: {
+        //        text: title,
+        //        left: 'center',
+        //        top: 20,
+        //        textStyle: {
+        //            color: '#ccc'
+        //        }
+        //    },
+
+        //    tooltip: {
+        //        trigger: 'item',
+        //        formatter: "{a} <br/>{b} : {c} ({d}%)"
+        //    },
+
+        //    visualMap: {
+        //        show: false,
+        //        min: 0.87,
+        //        max: 1,
+        //        inRange: {
+        //            colorLightness: [0, 1]
+        //        }
+        //    },
+        //    series: [
+        //        {
+        //            name: '访问来源',
+        //            type: 'pie',
+        //            radius: '55%',
+        //            center: ['50%', '50%'],
+        //            data: [
+        //                { value: Save2Num(entity.AqualCulture / sum), name: '水产养殖' },
+        //                { value: Save2Num(entity.ArgricultureLive / sum), name: '农村生活' },
+        //                { value: Save2Num(entity.LiveStockBreeding / sum), name: '养殖业' },
+        //                { value: Save2Num(entity.PlantNoPointSource / sum), name: '种植业' },
+        //            ].sort(function (a, b) { return a.value - b.value; }),
+        //            roseType: 'radius',
+        //            label: {
+        //                normal: {
+        //                    textStyle: {
+        //                        color: 'rgba(255, 255, 255, 0.3)'
+        //                    }
+        //                }
+        //            },
+        //            labelLine: {
+        //                normal: {
+        //                    lineStyle: {
+        //                        color: 'rgba(255, 255, 255, 0.3)'
+        //                    },
+        //                    smooth: 0.2,
+        //                    length: 10,
+        //                    length2: 20
+        //                }
+        //            },
+        //            itemStyle: {
+        //                normal: {
+        //                    color: '#c23531',
+        //                    shadowBlur: 200,
+        //                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+        //                }
+        //            },
+
+        //            animationType: 'scale',
+        //            animationEasing: 'elasticOut',
+        //            animationDelay: function (idx) {
+        //                return Math.random() * 200;
+        //            }
+        //        }
+        //    ]
+        //};
+        var option = {
+            title: {
+                text: title
+            },
+            tooltip: {},
+            legend: {
+                data: ['吨']
+            },
+            xAxis: {
+                data: ["水产养殖", "农村生活", "养殖业", "种植业"]
+            },
+            yAxis: {},
+            series: [{
+                name: '吨',
+                type: 'bar',
+                data: [(entity.AqualCulture/1000).toFixed(2), (entity.ArgricultureLive/1000).toFixed(2), (entity.LiveStockBreeding/1000).toFixed(2), (entity.PlantNoPointSource/1000).toFixed(2)]
+            }]
+        };
+        debugger
+        myChart.setOption(option);
+    }
+    LoadNDistribute();
+    function LoadNDistribute() {
+        $.ajax({
+            url: "/AP_PullutionDistribute/NDistribute",
+            cache: false,
+            type: "GET",
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+                if (data.Result) {
+                    LoadEchartOfNDistribute(data.Entity, "NDistribute", "氮的不同污染贡献");
+                } else {
+                    alert("保存失败");
+                }
+            },
+            error: function (errorData) {
+                alert("保存失败");
+            },
+            complete: function () {
+
+            }
+        })
+    }
+    LoadPDistribute();
+    function LoadPDistribute() {
+        $.ajax({
+            url: "/AP_PullutionDistribute/PDistribute",
+            cache: false,
+            type: "GET",
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+                if (data.Result) {
+                    LoadEchartOfNDistribute(data.Entity, "PDistribute", "磷的不同污染贡献");
+                } else {
+                    alert("保存失败");
+                }
+            },
+            error: function (errorData) {
+                alert("保存失败");
+            },
+            complete: function () {
+
+            }
+        })
+    }
+    LoadCoDistribute();
+    function LoadCoDistribute() {
+        $.ajax({
+            url: "/AP_PullutionDistribute/CodDistribute",
+            cache: false,
+            type: "GET",
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+                if (data.Result) {
+                    LoadEchartOfNDistribute(data.Entity, "CodDistribute", "Cod的不同污染贡献");
+                } else {
+                    alert("保存失败");
+                }
+            },
+            error: function (errorData) {
+                alert("保存失败");
+            },
+            complete: function () {
+
+            }
+        })
+    }
+</script>

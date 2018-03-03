@@ -85,7 +85,12 @@
             <li>数据导入导出</li>
       </ul>
           </li>
-        
+                  <li tag="IndexAP_PullutionDistribute"><div>不同污染源贡献</div>
+                <ul  class="AP_PullutionDistribute">
+          <li tag="IndexAP_PullutionDistribute">不同污染源贡献</li>
+           
+      </ul>
+          </li>
     </ul>
     </div>
      <script>
@@ -103,6 +108,9 @@
              })
              $("ul.AP_PlantNoPointSource li").click(function (e) {
                  $("#ifmContent").attr("src", "/AP_PlantNoPointSource/" + $(this).attr("tag"));
+             })
+             $("ul.AP_PullutionDistribute li").click(function (e) {
+                 $("#ifmContent").attr("src", "/AP_PullutionDistribute/" + $(this).attr("tag"));
              })
          });
   </script>

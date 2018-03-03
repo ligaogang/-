@@ -155,5 +155,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SumPullution">
+      <EntityTypeMapping TypeName="AugricultureNonPointSourcePollutionModel.SumPullution">
+        <MappingFragment StoreEntitySet="SumPullution">
+          <ScalarProperty Name="PullutionType" ColumnName="PullutionType" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="LastModifyTime" ColumnName="LastModifyTime" />
+          <ScalarProperty Name="LastModifyUser" ColumnName="LastModifyUser" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CoSum" ColumnName="CoSum" />
+          <ScalarProperty Name="PSum" ColumnName="PSum" />
+          <ScalarProperty Name="NSum" ColumnName="NSum" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

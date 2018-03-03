@@ -41,7 +41,7 @@ namespace AugricultureNonPointSourcePollution.Controllers
                 double sumOfN = RuralPopulation * NofLifePullution + RuralPopulation * NofBodyOutput;
                 double sumOfP = RuralPopulation * PofLifePullution + RuralPopulation * PofBodyOutput;
                 double sumOfCod = RuralPopulation * CoOfLifePullution + RuralPopulation * CoOfBodyOutput;
-                return Json(new { Result = true, Entity = new PullutionReportModel { OutPutOfCo = sumOfCod, OutPutOfN = sumOfN, OutPutOfP = sumOfP, PullutionType = (int)PullutionTypeEnum.LiveStockBreeding } }, JsonRequestBehavior.AllowGet);
+                return Json(new { Result = true, Entity = new PullutionReportModel { OutPutOfCo = sumOfCod, OutPutOfN = sumOfN, OutPutOfP = sumOfP, PullutionType = (int)PullutionTypeEnum.ArgricultureLive } }, JsonRequestBehavior.AllowGet);
             }
         }
 

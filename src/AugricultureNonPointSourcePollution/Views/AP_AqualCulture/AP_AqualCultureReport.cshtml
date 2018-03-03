@@ -26,7 +26,7 @@
                             <div class="col col-sm-12">
 
                                 <button type="button" class="btn-new-refreash" onclick="refreshTable()">刷新</button>
-                                  
+                                    <button type="button" class="btn-new-refreash" onclick="saveReport()">保存</button>
                             </div>
                         </div>
 
@@ -42,6 +42,7 @@
                 </div>
 <script>
     var columns = [
+           { name: "PullutionType", hidden: true },
         {
             label: "序号",
             name: "SeqNo",
@@ -139,6 +140,58 @@
         $(window).resize(function () {
 
             resizeFRGrid();
+        })
+    }
+    function saveReport() {
+        var validata = true;
+        var RuleRows = [];
+        var o = $("#tbAddOrEditFeeRule tbody tr.jqgrow");
+        $.each(o, function (i, n) {
+            var PullutionType = $(n).find("td[aria-describedby=tbAddOrEditFeeRule_PullutionType]").text();
+
+            var OutPutOfN = $(n).find("td[aria-describedby=tbAddOrEditFeeRule_OutPutOfN]").text().trim();
+            var OutPutOfP = $(n).find("td[aria-describedby=tbAddOrEditFeeRule_OutPutOfP]").text().trim();
+            var OutPutOfCo = $(n).find("td[aria-describedby=tbAddOrEditFeeRule_OutPutOfCo]").text().trim();
+            OutPutOfN = parseFloat(OutPutOfN);
+            OutPutOfP = parseFloat(OutPutOfP);
+            OutPutOfCo = parseFloat(OutPutOfCo);
+            if (!validata)
+                return;
+            var row = {
+                Id: "00000000-0000-0000-0000-000000000000",
+                PullutionType: PullutionType,
+                NSum: OutPutOfN,
+                PSum: OutPutOfP,
+                CoSum: OutPutOfCo,
+                CreateUser: "2B0217FD-A6E9-49DB-AE85-6631F3E84BD7",
+                CreateTime: new Date(),
+                LastModifyTime: new Date(),
+                LastModifyUser: "2B0217FD-A6E9-49DB-AE85-6631F3E84BD7"
+            };
+
+            RuleRows.push(row);
+        });
+
+        $.ajax({
+            url: "/AP_PlantNoPointSource/SaveOrUpdateSumPullution",
+            data: { model: JSON.stringify(RuleRows) },
+            cache: false,
+            type: "POST",
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+                if (data.Result) {
+                    alert(data.Content);
+                } else {
+                    alert("保存失败");
+                }
+            },
+            error: function (errorData) {
+                alert("保存失败");
+            },
+            complete: function () {
+
+            }
         })
     }
 </script>

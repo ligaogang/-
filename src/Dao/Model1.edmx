@@ -13,6 +13,7 @@
           <EntitySet Name="AP_LiveStockBreedingCoeffecient" EntityType="AugricultureNonPointSourcePollutionModel.Store.AP_LiveStockBreedingCoeffecient" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AP_PlantNoPointSource" EntityType="AugricultureNonPointSourcePollutionModel.Store.AP_PlantNoPointSource" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AP_PullutionSum" EntityType="AugricultureNonPointSourcePollutionModel.Store.AP_PullutionSum" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SumPullution" EntityType="AugricultureNonPointSourcePollutionModel.Store.SumPullution" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_AP_AQUAL_REFERENCE_AP_AREA" Association="AugricultureNonPointSourcePollutionModel.Store.FK_AP_AQUAL_REFERENCE_AP_AREA">
             <End Role="AP_Area" EntitySet="AP_Area" />
             <End Role="AP_AqualCulture" EntitySet="AP_AqualCulture" />
@@ -177,6 +178,23 @@
           <Property Name="Flag" Type="int" Nullable="false" />
           <Property Name="Code" Type="nvarchar" Nullable="false" MaxLength="100" />
         </EntityType>
+        <EntityType Name="SumPullution">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PullutionType" Type="int" Nullable="false" />
+          <Property Name="NSum" Type="float" />
+          <Property Name="PSum" Type="float" />
+          <Property Name="CoSum" Type="float" />
+          <Property Name="CreateUser" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="LastModifyUser" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LastModifyTime" Type="datetime" Nullable="false" />
+          <Property Name="Flag" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
         <Association Name="FK_AP_AQUAL_REFERENCE_AP_AREA">
           <End Role="AP_Area" Type="AugricultureNonPointSourcePollutionModel.Store.AP_Area" Multiplicity="0..1" />
           <End Role="AP_AqualCulture" Type="AugricultureNonPointSourcePollutionModel.Store.AP_AqualCulture" Multiplicity="*" />
@@ -253,6 +271,7 @@
           </AssociationSet>
           <EntitySet Name="AP_LiveStockBreedingCoeffecient" EntityType="AugricultureNonPointSourcePollutionModel.AP_LiveStockBreedingCoeffecient" />
           <EntitySet Name="AP_PullutionSum" EntityType="AugricultureNonPointSourcePollutionModel.AP_PullutionSum" />
+          <EntitySet Name="SumPullution" EntityType="AugricultureNonPointSourcePollutionModel.SumPullution" />
         </EntityContainer>
         <EntityType Name="AP_AqualCulture">
           <Key>
@@ -449,6 +468,23 @@
           <Property Type="Int32" Name="Flag" Nullable="false" />
           <Property Type="String" Name="Code" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="SumPullution">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Double" Name="NSum" />
+          <Property Type="Double" Name="PSum" />
+          <Property Type="Double" Name="CoSum" />
+          <Property Type="Guid" Name="CreateUser" Nullable="false" />
+          <Property Type="DateTime" Name="CreateTime" Nullable="false" Precision="3" />
+          <Property Type="Guid" Name="LastModifyUser" Nullable="false" />
+          <Property Type="DateTime" Name="LastModifyTime" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="Flag" Nullable="false" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
+          <Property Type="String" Name="Code" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="PullutionType" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -605,6 +641,24 @@
                 <ScalarProperty Name="SumOfN" ColumnName="SumOfN" />
                 <ScalarProperty Name="PullutionSource" ColumnName="PullutionSource" />
                 <ScalarProperty Name="PullutionType" ColumnName="PullutionType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SumPullution">
+            <EntityTypeMapping TypeName="AugricultureNonPointSourcePollutionModel.SumPullution">
+              <MappingFragment StoreEntitySet="SumPullution">
+                <ScalarProperty Name="PullutionType" ColumnName="PullutionType" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="LastModifyTime" ColumnName="LastModifyTime" />
+                <ScalarProperty Name="LastModifyUser" ColumnName="LastModifyUser" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CoSum" ColumnName="CoSum" />
+                <ScalarProperty Name="PSum" ColumnName="PSum" />
+                <ScalarProperty Name="NSum" ColumnName="NSum" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

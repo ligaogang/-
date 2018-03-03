@@ -24,6 +24,7 @@
     </AssociationSet>
     <EntitySet Name="AP_LiveStockBreedingCoeffecient" EntityType="AugricultureNonPointSourcePollutionModel.AP_LiveStockBreedingCoeffecient" />
     <EntitySet Name="AP_PullutionSum" EntityType="AugricultureNonPointSourcePollutionModel.AP_PullutionSum" />
+    <EntitySet Name="SumPullution" EntityType="AugricultureNonPointSourcePollutionModel.SumPullution" />
   </EntityContainer>
   <EntityType Name="AP_AqualCulture">
     <Key>
@@ -219,5 +220,22 @@
     <Property Type="Int32" Name="Status" Nullable="false" />
     <Property Type="Int32" Name="Flag" Nullable="false" />
     <Property Type="String" Name="Code" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SumPullution">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Guid" Name="Id" Nullable="false" />
+    <Property Type="Double" Name="NSum" />
+    <Property Type="Double" Name="PSum" />
+    <Property Type="Double" Name="CoSum" />
+    <Property Type="Guid" Name="CreateUser" Nullable="false" />
+    <Property Type="DateTime" Name="CreateTime" Nullable="false" Precision="3" />
+    <Property Type="Guid" Name="LastModifyUser" Nullable="false" />
+    <Property Type="DateTime" Name="LastModifyTime" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="Flag" Nullable="false" />
+    <Property Type="Int32" Name="Status" Nullable="false" />
+    <Property Type="String" Name="Code" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="PullutionType" Nullable="false" />
   </EntityType>
 </Schema>
