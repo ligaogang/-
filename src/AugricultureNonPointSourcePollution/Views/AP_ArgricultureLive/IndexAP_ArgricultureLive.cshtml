@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "IndexAP_PlantNoPointSource";
+    Layout = "../Shared/_LayoutBody.cshtml";
+    }
+<style>
+    .ui-search-toolbar {
+    display:none;
+    }
+    td.text-middle {
+    text-align:center !important;
+    vertical-align:middle !important;
+    }
+    th.ui-th-column-header.ui-th-ltr {
+    border-bottom:1px solid #ddd !important;
+    }
+    th.ui-th-column.ui-th-ltr {
+     border-bottom:1px solid #ddd !important;
+    }
+</style>
+    <form class="form form-horizontal form-custom-default"style="width:98%;" id="FormAssesOfYearFinal">
+            <div class="form-group">
+          <div class="col col-sm-1"><label class="label-custom-default pull-right">年份：</label></div>
+                <div class="col col-sm-2"> <input name="Year" type="text" class="form-control" style="height:30px;line-height:30px;" placeholder="测试时间",
+                onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy',onpicked:beginSearch()})" readonly="true" /></div>
+       
+                </div> <div class="form-group">
+            <div class="col col-sm-12">
+
+<table class="table table-custom-default table-line-height40" id="AP_PlantNoPointSourceList"></table>
+                </div></div>
+    </form>
+
+<script>
+    function resizeGrid() {
+        $(window).unbind("onresize");
+        $("#AP_PlantNoPointSourceList").setGridHeight($(window).height()-140);
+        $(window).bind("onresize", this);
+    }
+    $(function () {
+        $("#FormAssesOfYearFinal").find("[name=Year]").val(new Date(2016, 1, 1).getFullYear());
+        beginSearch();
+    })
+    var col = [
+     { name: "Id", hidden: true, key: true },
+     {
+         label: "序号",
+         classes:"text-middle",
+         name: "SeqNo",
+         sortable: false,
+         colmenu: false,
+         sortable: false,
+         width: 100,
+         colmenu: false
+     },
+     {
+         label: "区县",
+         name: "AreaName",
+         classes: "text-middle",
+         sortable: false,
+         colmenu: false,
+         classes: "text-middle",
+         isVisible: true,
+         width: 100,
+         coloptions: { sorting: true, columns: false, filtering: true, seraching: true, grouping: false, freeze: true }, searchoptions: { searchOperMenu: false, sopt: ['eq', 'lt', 'gt'] },
+
+     },
+     {
+         label: "农村人口（人）",
+         index: "RuralPopulation",
+         name: "RuralPopulation",
+         classes: "text-middle",
+         sortable: false,
+         colmenu: false,
+         width: 120,
+         isVisible: true,
+         coloptions: { sorting: true, columns: false, filtering: true, seraching: true, grouping: false, freeze: true }, searchoptions: { searchOperMenu: false, sopt: ['eq', 'lt', 'gt'] },
+     },
+           {
+               label: "农业产值",
+               index: "ValueOfAgricultureProduct",
+               name: "ValueOfAgricultureProduct",
+               sortable: false,
+               classes: "text-middle",
+               colmenu: false,
+               width: 100,
+               isVisible: true,
+               coloptions: { sorting: true, columns: false, filtering: true, seraching: true, grouping: false, freeze: true }, searchoptions: { searchOperMenu: false, sopt: ['eq', 'lt', 'gt'] },
+           }
+
+    ];
+    function beginSearch() {
+        var Year = $("#FormAssesOfYearFinal").find("[name=Year]").val();
+        $.ajax({
+            url: "/AP_ArgricultureLive/GetArgricultureLive",
+            data: { Year: Year },
+            async: true,
+            dataType: 'json',
+            type: "POST",
+            success: function (json) {
+                var SeqNum = 1;
+                if (json.Result) {
+                    $.each(json.Entity, function (i, n) {
+                        json.Entity[i].SeqNo = SeqNum++;
+                    });
+                    page_init(json.Entity, col)
+                } else {
+                    bAlert("获取信息失败");
+                }
+            },
+            error: function (errorData) {
+            },
+            complete: function () {
+            }
+        });
+    }
+    function page_init(tableJson, columnType) {
+        $.jgrid.gridUnload("#AP_PlantNoPointSourceList");
+        $('#AP_PlantNoPointSourceList').jqGrid({
+            datatype: "local",
+            data: tableJson,
+
+            gridComplete: function () {
+
+            },
+            loadComplete: function (json) {
+                resizeGrid();
+            },
+            colModel: columnType,
+
+            loadError: function (json, status, error) {
+            },
+
+            width: "100%",
+            heiht: "100%",
+            autowidth: true,
+            colMenu: true,
+            rowNum: tableJson.length,
+            loadonce: true,
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+
+            },
+            onSelectRow: function (rowid, status) {
+               
+            },
+        });
+        $(window).resize(function () {
+
+            resizeGrid();
+        })
+    }
+
+</script>

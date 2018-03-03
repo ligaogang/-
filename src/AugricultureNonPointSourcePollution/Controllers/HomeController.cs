@@ -1,4 +1,5 @@
-﻿using Dao;
+﻿using AugricultureNonPointSourcePollution.Models;
+using Dao;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,7 +13,7 @@ using System.Web.Mvc;
 
 namespace AugricultureNonPointSourcePollution.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
@@ -20,20 +21,8 @@ namespace AugricultureNonPointSourcePollution.Controllers
 
             return View();
         }
-        public ActionResult IndexAP_PlantNoPointSource() {
-            return View();
-        }
-        public ActionResult IndexAP_AqualCulture() {
-            return View();
-        }
-        public ActionResult IndexAP_LiveStockBreeding()
-        {
-            return View();
-        }
-        public ActionResult IndexAP_ArgricultureLive()
-        {
-            return View();
-        }
+       
+
         private string connStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         public ActionResult ImportAreaData() {
             AugricultureNonPointSourcePollutionEntities2 ctx=new AugricultureNonPointSourcePollutionEntities2();
@@ -409,89 +398,26 @@ namespace AugricultureNonPointSourcePollution.Controllers
                 return Content("success");
             }
         }
-        public AugricultureNonPointSourcePollutionEntities2 GetDbContext() {
-            return  new AugricultureNonPointSourcePollutionEntities2();
+       
+        //
+        public ActionResult GetAreaForDropDownList() {
+            using (var ctx = GetDbContext()) {
+                var area = ctx.Set<AP_Area>();
+                var query = (from a in area
+                            select a).ToList();
+                var result=(query.Select(c=>{
+                    return new DropDownListItem
+                    {
+                        Value = c.Id.ToString(),
+                        Text = c.Name
+                    };
+                })).ToList();
+                return Json(result,JsonRequestBehavior.AllowGet);
+            }
         }
-        public ActionResult GetAP_PlantNoPointSourceList(int Year) {
-           var ctx = GetDbContext();
-                var PlantNoPointSource = ctx.Set<AP_PlantNoPointSource>().ToList();
-                var area = ctx.Set<AP_Area>().ToList();
-                var query = from a in PlantNoPointSource
-                            join b in area on a.Area equals b.Id into b1
-                            where a.Year == Year
-                            select new
-                            {
-                                obj = a,
-                                areaName = b1.FirstOrDefault().Name
-                            };
-                foreach (var c in query)
-                {
-                    c.obj.AreaName = c.areaName;
-                };
-                var result = query.Select(c => c.obj).ToList();
-                return Json(new { Entity = result, Result = true }, JsonRequestBehavior.AllowGet);
-            
-        }
-        public ActionResult GetAP_AqualCulture(int Year)
-        {
-            var ctx = GetDbContext();
-            var PlantNoPointSource = ctx.Set<AP_AqualCulture>().ToList();
-            var area = ctx.Set<AP_Area>().ToList();
-            var query = from a in PlantNoPointSource
-                        join b in area on a.Area equals b.Id into b1
-                        where a.Year == Year
-                        select new
-                        {
-                            obj = a,
-                            areaName = b1.FirstOrDefault().Name
-                        };
-            foreach (var c in query)
-            {
-                c.obj.AreaName = c.areaName;
-            };
-            var result = query.Select(c => c.obj).ToList();
-            return Json(new { Entity = result, Result = true }, JsonRequestBehavior.AllowGet);
 
-        }
-        public ActionResult GetArgricultureLive(int Year)
-        {
-            var ctx = GetDbContext();
-            var PlantNoPointSource = ctx.Set<AP_ArgricultureLive>().ToList();
-            var area = ctx.Set<AP_Area>().ToList();
-            var query = from a in PlantNoPointSource
-                        join b in area on a.Area equals b.Id into b1
-                        where a.Year == Year
-                        select new
-                        {
-                            obj = a,
-                            areaName = b1.FirstOrDefault().Name
-                        };
-            foreach (var c in query)
-            {
-                c.obj.AreaName = c.areaName;
-            };
-            var result = query.Select(c => c.obj).ToList();
-            return Json(new { Entity = result, Result = true }, JsonRequestBehavior.AllowGet);
-        }
-        public ActionResult GetAP_LiveStockBreeding(int Year)
-        {
-            var ctx = GetDbContext();
-            var LiveStockBreeding = ctx.Set<AP_LiveStockBreeding>().ToList();
-            var area = ctx.Set<AP_Area>().ToList();
-            var query = from a in LiveStockBreeding
-                        join b in area on a.Area equals b.Id into b1
-                        where a.Year == Year
-                        select new
-                        {
-                            obj = a,
-                            areaName = b1.FirstOrDefault().Name
-                        };
-            foreach (var c in query)
-            {
-                c.obj.AreaName = c.areaName;
-            };
-            var result = query.Select(c => c.obj).ToList();
-            return Json(new { Entity = result, Result = true }, JsonRequestBehavior.AllowGet);
-        }
+      
+       
+       
     }
 }

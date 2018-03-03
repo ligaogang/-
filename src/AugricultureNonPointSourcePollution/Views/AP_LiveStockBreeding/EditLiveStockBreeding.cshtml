@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "EditLiveStockBreeding";
+      Layout = null;
+}
+<style>
+    input, span {
+        text-align: left;
+    }
+
+    li.select2-results__option {
+        text-align: left !important;
+    }
+
+</style>
+<div class="modal modal-custom-default" style="overflow:auto;" id="EditLiveStockBreeding">
+    <div class="modal-dialog" style="width:1000px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title title title-content-headings"></h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="layout layout-custom-default">
+                    <form id="FormEditLiveStockBreeding" class="form form-horizontal form-custom-default">
+                        <input type="hidden" name="Id" />
+                        <div class="form-group">
+                            <div class="col col-sm-12">
+                                <div class="form-group">
+                                    <input type="hidden" name="Id" />
+                                    <div class="col col-sm-2">
+                                        <label class="label-custom-default ">区县<span class="addon required" style="color: red">*</span></label>
+                                    </div>
+                                    <div class="col col-sm-4" style="text-align:left !important">
+                                        <select class="form-control dropdownlist select select2 required" id="Area" placeholder="请选择区县" name="Area" search="true" automatic="true" ajax-url="/Home/GetAreaForDropDownList" header="true" async="true"></select>
+                                    </div>
+                                    <div class="col col-sm-2">
+
+                                        <label class="label-custom-default ">大牲畜</label>
+                                    </div>
+                                    <div class="col col-sm-4">
+                                        <input class="form-control" type="text" id="ALargeAnimal" name="ALargeAnimal" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col col-sm-2">
+                                        <label class="label-custom-default ">猪</label>
+                                    </div>
+                                    <div class="col col-sm-4">
+                                        <input class="form-control" type="text" id="Pig" name="Pig" />
+                                    </div>
+                                    <div class="col col-sm-2">
+                                        <label class="label-custom-default ">羊</label>
+                                    </div>
+                                    <div class="col col-sm-4">
+                                      
+                                        <input class="form-control" type="text" id="sheep" name="sheep"  />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col col-sm-2">
+                                        <label class="label-custom-default ">家禽</label>
+                                    </div>
+                                    <div class="col col-sm-4">
+                                        <input class="form-control" type="text" id="poultry" name="poultry"  />
+                                    </div>
+                                    
+                                </div>
+                               
+                            </div>
+
+                            <div class="clear-both"></div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button type="button" class="btn-new-save box-form-item btn-custom-save" onclick="saveLiveStockBreeding()">保存</button>
+                    <button type="button" class="btn-new-reset box-form-item btn-custom-cancel" onclick="resetForm()">重置</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var params = {
+        Id:null
+    };
+    function saveLiveStockBreeding() {
+        var data = $("#FormEditLiveStockBreeding").serializeJSON();
+        if (!data.Id)
+            data.Id = "00000000-0000-0000-0000-000000000000";
+        data.CreateUser = "00000000-0000-0000-0000-000000000000";
+        data.LastModifyUser = "00000000-0000-0000-0000-000000000000";
+        data.CreatetTime = new Date();
+        data.LastModifyTime = new Date();
+        data.Flag = 1;
+        data.Status = 0;
+        data.Code = 0;
+        $.ajax({
+            url: "/AP_LiveStockBreeding/SaveLiveStock",
+            method: "POST",
+            async:"true",
+            data: { model: JSON.stringify(data) },
+            success: function (data) {
+                if (data.Result) {
+                    toastr.success(data.Content);
+                    $("#EditLiveStockBreeding").modal("hide");
+                } else {
+                    toastr.warning("保存失败");
+                }
+
+            }
+        });
+    }
+    function EditById(Id) {
+        $.ajax({
+            url: "/AP_LiveStockBreeding/GetById?Id="+Id,
+            method: "Get",
+            async: "true",
+            success: function (data) {
+                if (data.Result) {
+                    $("#FormEditLiveStockBreeding").fillData(data.Entity);
+                    $("#EditLiveStockBreeding").modal("show");
+                } else {
+                    bAlert("保存失败");
+                }
+
+            }
+        });
+    }
+    function Show(Id) {
+        $.ajax({
+            url: "/AP_LiveStockBreeding/GetById?Id=" + Id,
+            method: "Get",
+            async: "true",
+            success: function (data) {
+                if (data.Result) {
+                    $("#FormEditLiveStockBreeding").fillData(data.Entity);
+                    $("#FormEditLiveStockBreeding").find("[name]").attr("disabled","disabled");
+                    $("#EditLiveStockBreeding").modal("show");
+                } else {
+                    bAlert("保存失败");
+                }
+
+            }
+        });
+    }
+</script>

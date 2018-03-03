@@ -59,17 +59,29 @@
     <Compile Include="AP_LiveStockBreeding.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="AP_LiveStockBreedingCoeffecient.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="AP_PlantNoPointSource.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AP_PullutionSum.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\AP_AqualCulture.cs" />
     <Compile Include="Entities\AP_ArgricultureLive.cs" />
     <Compile Include="Entities\AP_LiveStockBreeding.cs" />
+    <Compile Include="Entities\AP_LiveStockBreedingCoeffecient.cs" />
     <Compile Include="Entities\AP_PlantNoPointSource.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model1.Designer.cs">
       <AutoGen>True</AutoGen>

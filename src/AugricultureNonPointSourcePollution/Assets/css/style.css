@@ -1,0 +1,8 @@
+﻿.search_buttons #bs_reset,.search_buttons #bs_search,.search_buttons #bs_resetall{
+    margin-right: 3px;
+    height: 32px;
+}
+.ui-search-menu.modal-content.column-menu.ui-menu {
+left:0px;
+top:0px;
+}

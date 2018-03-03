@@ -22,6 +22,8 @@
       <End Role="AP_Area" EntitySet="AP_Area" />
       <End Role="AP_PlantNoPointSource" EntitySet="AP_PlantNoPointSource" />
     </AssociationSet>
+    <EntitySet Name="AP_LiveStockBreedingCoeffecient" EntityType="AugricultureNonPointSourcePollutionModel.AP_LiveStockBreedingCoeffecient" />
+    <EntitySet Name="AP_PullutionSum" EntityType="AugricultureNonPointSourcePollutionModel.AP_PullutionSum" />
   </EntityContainer>
   <EntityType Name="AP_AqualCulture">
     <Key>
@@ -181,4 +183,41 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="AP_LiveStockBreedingCoeffecient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Guid" Name="Id" Nullable="false" />
+    <Property Type="Guid" Name="PullutionSource" />
+    <Property Type="Int32" Name="PullutionType" Nullable="false" />
+    <Property Type="Double" Name="NCoefficient" />
+    <Property Type="Double" Name="PCoefficient" />
+    <Property Type="Double" Name="CodCoefficient" />
+    <Property Type="Int32" Name="Status" Nullable="false" />
+    <Property Type="String" Name="Code" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="Flag" Nullable="false" />
+    <Property Type="DateTime" Name="CreateTime" Nullable="false" Precision="3" />
+    <Property Type="Guid" Name="CreateUser" Nullable="false" />
+    <Property Type="DateTime" Name="LastModifyTime" Nullable="false" Precision="3" />
+    <Property Type="Guid" Name="LastModifyUser" Nullable="false" />
+    <Property Type="Double" Name="LevelCoefficient" />
+  </EntityType>
+  <EntityType Name="AP_PullutionSum">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Guid" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="PullutionType" Nullable="false" />
+    <Property Type="Guid" Name="PullutionSource" Nullable="false" />
+    <Property Type="Double" Name="SumOfN" />
+    <Property Type="Double" Name="SumOfP" />
+    <Property Type="Double" Name="SumOfCod" />
+    <Property Type="Guid" Name="CreateUser" Nullable="false" />
+    <Property Type="DateTime" Name="CreateTime" Nullable="false" Precision="3" />
+    <Property Type="Guid" Name="LastModifyUser" Nullable="false" />
+    <Property Type="DateTime" Name="LastModifyTime" Nullable="false" Precision="3" />
+    <Property Type="Int32" Name="Status" Nullable="false" />
+    <Property Type="Int32" Name="Flag" Nullable="false" />
+    <Property Type="String" Name="Code" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

@@ -9,24 +9,41 @@
     <link href="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/css/ui.jqgrid.css" rel="stylesheet" />
     <link href="../Assets/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Assets/css/style.css" rel="stylesheet" />
+    <link href="~/Assets/plugins/toastr/toastr.min.css" rel="stylesheet" />
 	<script type="text/javascript" src="../Assets/js/jquery.js"></script>
     <script src="~/Assets/js/jquery-ui.js"></script>
     <script src="../Assets/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../Assets/js/jquery.layout.js"></script>
+    <script src="~/Assets/plugins/DataTables-1.10.12/media/js/jquery.dataTables.js"></script>
+    <script src="~/Assets/plugins/DataTables-1.10.12/FixedColumns-3.2.2/js/dataTables.fixedColumns.js"></script>
     <script src="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/js/i18n/grid.locale-cn.js"></script>
     <script src="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/src/jquery.jqGrid.js"></script>
     <script src="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/plugins/jquery.tablednd.js"></script>
+    <script src="~/Assets/js/jquery.serializejson.min.js"></script>
     <script src="../Assets/plugins/Guriddo_jqGrid_JS_5.2.1/plugins/tbltogrid.js"></script>
     <script src="../Assets/plugins/My97DatePicker/WdatePicker.js"></script>
-	<script type="text/javascript">
-	    $.jgrid.defaults.width = "100%";
+    <script src="~/Assets/js/custom.form.dropdownlist.js"></script>
+    <script src="~/Assets/js/custom.form.fill.js"></script>
+    <script src="~/Assets/js/layoutConfigHelper.js"></script>
+    <script src="~/Assets/plugins/toastr/toastr.min.js"></script>
+	<script>
+	    $.jgrid.defaults.width = 780;
 	    $.jgrid.defaults.responsive = true;
 	    $.jgrid.defaults.styleUI = 'Bootstrap';
-	    $.jgrid.defaults.mtype = "post";
+	    toastr.options = {
+	        positionClass: 'toast-top-center',
+	        timeOut: 1500,
+	    };
 	</script>
 
 </head>
 <body>
        @RenderBody()
+    <script type="text/javascript">
+        $(document).on("load", "ul.ui-search-menu", function () {
+            $(this).css({ "left": "0px", "top": "0px" });
+        });
+    </script>
 </body>
 </html>

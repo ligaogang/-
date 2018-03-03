@@ -1,0 +1,144 @@
+﻿@{
+    ViewBag.Title = "ArgricultureLivePullutionReport";
+    Layout = "../Shared/_LayoutBody.cshtml";
+}
+<style>
+      #tbAddOrEditFeeRule td, span, input, li {
+        text-align: left !important;
+        vertical-align: middle;
+    }
+
+    #tbAddOrEditFeeRule td, span, input, li {
+        text-align: left !important;
+        vertical-align: middle;
+    }
+
+    #tbAddOrEditFeeRule.table-custom-default tr th, #tbAddCertificate.table-custom-default tr td {
+        overflow: visible !important;
+        white-space: normal;
+    }
+</style>
+ <div class="layout layout-custom-margin layout-position-absolute">
+
+                  <form class="form form-horizontal form-custom-default" id="formAddCetifi">
+
+                        <div class="form-group">
+                            <div class="col col-sm-12">
+
+                                <button type="button" class="btn-new-refreash" onclick="refreshTable()">刷新</button>
+                                  
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col col-sm-12">
+                                <table class="table table-custom-default table-line-height40" id="tbAddOrEditFeeRule">
+                                  
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+<script>
+    var columns = [
+        {
+            label: "序号",
+            name: "SeqNo",
+            sortable: false,
+            width: 60,
+            colmenu: false
+        },
+        {
+            label: "总氮年排放量",
+            index: "OutPutOfN",
+            editable: true,
+            name: "OutPutOfN",
+            width: 286,
+            isVisible: true,
+        },
+        {
+            label: "总磷年排放量",
+            name: "OutPutOfP",
+            index: "OutPutOfP",
+            editable: true,
+            Width: 200,
+            isVisible: true
+
+        },
+        {
+            label: "总Cod年排放量",
+            name: "OutPutOfCo",
+            index: "OutPutOfCo",
+            editable: true,
+            width: 200
+        }
+    ];
+    refreshTable();
+    // 刷新数据
+    function refreshTable() {
+        $.ajax({
+            url: "/AP_LiveStockBreeding/CaculateLiveStockBreedingPullution?pt=" + new Date(),
+            cache: false,
+            dataType: "json",
+            success: function (data) {
+                var json = [];
+                json.push(data.Entity);
+                for (var i = 0; i < json.length; i++) {
+
+                    json[i].SeqNo = i + 1;
+
+                }
+                var tableJson = json;
+                pageFRInit(tableJson, columns);
+            },
+            error: function (data) {
+
+            }
+        });
+    }
+    function resizeFRGrid() {
+        $(window).unbind("onresize");
+        $("#tbAddOrEditFeeRule").setGridHeight($(window).height() - 89);
+        $(window).bind("onresize", this);
+    }
+    // 页面初始化
+    function pageFRInit(tableJson, columnType) {
+        $.jgrid.gridUnload("#tbAddOrEditFeeRule");
+        $('#tbAddOrEditFeeRule').jqGrid({
+            datatype: "local",
+            data: tableJson,
+
+            gridComplete: function () {
+
+            },
+            loadComplete: function (json) {
+                $('#tbAddOrEditFeeRule').find("tr.jqgrow").each(function (i, ele) {
+                    $(ele).find("[aria-describedby='tbAddOrEditFeeRule_SeqNo']").html(i + 1);
+                });
+                resizeFRGrid();
+            },
+            colModel: columnType,
+
+            loadError: function (json, status, error) {
+                toastr.error(error);
+            },
+
+            width: "100%",
+            heiht: "100%",
+            autowidth: true,
+            rowNum: tableJson.length,
+            loadonce: true,
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+            },
+            onSelectRow: function (rowid, status) {
+               
+            },
+        });
+        $(window).resize(function () {
+
+            resizeFRGrid();
+        })
+    }
+</script>

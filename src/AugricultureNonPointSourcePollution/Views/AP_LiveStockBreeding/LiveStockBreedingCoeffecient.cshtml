@@ -1,0 +1,500 @@
+﻿@{
+    ViewBag.Title = "LiveStockBreedingCoeffecient";
+    Layout = "../Shared/_LayoutBody.cshtml";
+    string UserId = ViewBag.UserId != null ? ViewBag.UserId.ToString() : "00000000-0000-0000-0000-000000000000";
+    string UserName = ViewBag.UserName != null ? ViewBag.UserName.ToString() : "";
+}
+<style>
+        /*隐藏在IE下显示的搜索框*/
+    .ui-search-toolbar {
+        display: none;
+    }
+    #tbAddOrEditFeeRule td, span, input, li {
+        text-align: left !important;
+        vertical-align: middle;
+    }
+
+    #tbAddOrEditFeeRule td, span, input, li {
+        text-align: left !important;
+        vertical-align: middle;
+    }
+
+    #tbAddOrEditFeeRule.table-custom-default tr th, #tbAddCertificate.table-custom-default tr td {
+        overflow: visible !important;
+        white-space: normal;
+    }
+
+    .combo-input.text-input {
+        color: #7E87A4 !important;
+    }
+
+    #EditFeeRule {
+        width: 1300px;
+        max-height: 900px;
+        margin-left: 10%;
+        margin-top: 1%;
+        padding: 0px;
+    }
+
+    .modal-dialog.EditFeeRule {
+        width: 1200px;
+        max-height: 800px;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .modal-body.EditFeeRule {
+        width: 1200px;
+        height: 710px;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .modal-content.EditFeeRule {
+        width: 1200px;
+        max-height: 800px;
+        margin: 0px;
+        padding: 0px;
+    }
+    .CaseOfStayNameSelector {
+        border: 0px solid transparent;
+        position: relative;
+        display: inline-block;
+        background: transparent;
+        width: 100px;
+    }
+
+    .CaseOfStayNameDiv {
+        height: 30px;
+        display: inline-block;
+    }
+
+    .CaseOfStayNameList {
+        z-index: 999;
+        position: fixed;
+        overflow-y: auto;
+        background-color: #b3d4fc;
+        border: 1px solid #b3d4fc;
+        border-radius: 0;
+        line-height: 30px;
+        font-size: 14px;
+        font-weight: 800;
+        color: #7F86A2;
+    }
+
+        .CaseOfStayNameList ul {
+            float: left;
+            padding: 0px;
+            margin: 5px;
+        }
+
+        .CaseOfStayNameList li {
+            /* float:left; */
+            display: block;
+            position: relative;
+            left: 5px;
+            margin: 0px;
+            clear: both;
+        }
+
+            .CaseOfStayNameList li input {
+                float: left;
+                vertical-align: middle;
+                margin-top: -2px;
+                margin-bottom: 1px;
+                margin-right: 4px;
+                height: 28px;
+                background: transparent;
+            }
+
+            .CaseOfStayNameList li span {
+                float: left;
+                vertical-align: middle;
+                margin: auto;
+                height: 28px;
+                padding: 0;
+            }
+</style>
+                <div class="layout layout-custom-margin layout-position-absolute">
+
+                  <form class="form form-horizontal form-custom-default" id="formAddCetifi">
+
+                        <div class="form-group">
+                            <div class="col col-sm-12">
+                                <button type="button" class="btn-new-save btn-custom-save" onclick="saveRule()">保存</button>
+                                <button type="button" class="btn-new-refreash" onclick="refreshTable()">刷新</button>
+                                   <button type="button" class="btn-new-delete btn-custom-delete" onclick="DeleteRow()">删除</button>
+                                  <button type="button" class="btn-new-delete btn-custom-delete" onclick="AddTraininRow()">增加</button>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col col-sm-12">
+                                <table class="table table-custom-default table-line-height40" id="tbAddOrEditFeeRule">
+                                  
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+<script type="text/javascript">
+
+    var lastselFR;
+    var editDataFR = {};
+    function reloadFRTable() {
+        $.jgrid.gridUnload("#tbAddOrEditFeeRule");
+        refreshTable();
+    }
+    // 初始化函数
+    $(function () {
+        refreshTable();
+    });
+    var popedCategoryList;
+    $(function () {
+
+        $(document).mouseup(function (ev) {
+            var e = ev || window.event;//获取事件
+            var ele = $(e.target || e.srcElement);//获取触发事件的元素
+            var parent = ele.parents("div")[0];
+
+            if (typeof popedCategoryList != 'undefined' && ele != popedCategoryList[0] && parent != popedCategoryList[0]) {
+                popedCategoryList.fadeOut("slow");
+                popedCategoryList = undefined;
+            }
+        });
+    });
+    function resizeFRGrid() {
+        $(window).unbind("onresize");
+        $("#tbAddOrEditFeeRule").setGridHeight(600);
+        $(window).bind("onresize", this);
+    }
+    var PullutionTypeList = [{
+        Value: 65536, Text: "池塘养殖"
+    },{
+        Value: 1048576, Text: "网箱养殖"
+    }, { Value: 16, Text: "农村生活" },
+    { Value: 256, Text: "畜禽养殖" }, { Value: 4096, Text: "种植污染" }
+    ];
+    var columns = [
+        { name: "Id", hidden: true, key: true },
+         { name: "IsNewFlag", hidden: true },
+         { name: "PullutionTypeName", hidden: true },
+        {
+            label: "序号",
+            name: "SeqNo",
+            sortable: false,
+            width: 60,
+            colmenu: false
+        },
+        {
+            label: "污染类型",
+            name: "PullutionType",
+            classes: "text-middle",
+            isVisible: true,
+            width: 300, formatter: function (data, options, row, meta) {
+                var html = "";
+                var name = data == null ? "" : data;  
+                html += "<div class='CaseOfStayNameSelector' title='' style='width:100%;'>";
+                html += " <div class='CaseOfStayNameDiv'><label val-data='" + data + "' name='CaseOfStayNameLabel' title='" + data + "' data-rowId='" + options.rowId + "' >" + row.PullutionTypeName + "</label></div>";
+                html += '<div class="CaseOfStayNameList"><ul>';
+                for (var i = 0; i < PullutionTypeList.length; i++) {
+                    var item = PullutionTypeList[i];
+                    var checked = item.Value == row.PullutionType;
+                    html += '<li><input type="radio" name="PullutionType" text-val="' + item.Text + '" value="' + item.Value + '" ';
+                    if (checked == true) {
+                        html += "checked='checked' ";
+                    }
+                    html += ' ><span>' + item.Text + '</span></li > ';
+                }
+                html += '</ul>';
+                html += '</div> </div>';
+                return html;
+            }
+        },
+                {
+                    label: "污染来源物",
+                    name: "PullutionSourceName",
+                    classes: "text-middle",
+                    editable: true,
+                    isVisible: true,
+                    width: 300
+                },
+        {
+            label: "氮污染系数",
+            index: "NCoefficient",
+            editable: true,
+            name: "NCoefficient",
+            width: 286,
+            isVisible: true,
+        },
+        {
+            label: "磷污染系数",
+            name: "PCoefficient",
+            index: "PCoefficient",  
+            editable: true,
+            Width: 200,
+            isVisible: true
+           
+        },
+        {
+            label: "化学需氧量系数",
+            name: "CodCoefficient",
+            index: "CodCoefficient",
+            editable: true,
+            width: 200
+        },
+        {
+            label: "流失系数",
+            name: "LevelCoefficient",
+            index: "LevelCoefficient",
+            editable: true,
+            width: 200
+        }
+    ];
+
+    function DeleteRow() {
+        var selectedId = $("#tbAddOrEditFeeRule").jqGrid("getGridParam", "selrow");
+        if (!selectedId) {
+            bAlert("请选择要删除的行");
+            return;
+        }
+        else {
+            jQuery("#tbAddOrEditFeeRule").jqGrid("delRowData", selectedId);
+            $('#tbAddOrEditFeeRule').find("tr.jqgrow").each(function (i, ele) {
+                $(ele).find("[aria-describedby='tbAddOrEditFeeRule_SeqNo']").html(i + 1);
+            });
+        }
+    }
+
+    // 刷新数据
+    function refreshTable() {
+        $.ajax({
+            url: "/AP_LiveStockBreeding/GetAllLiveStockRule?pt=" + new Date(),
+            cache: false,
+            dataType: "json",
+            success: function (data) {
+                var json = data.Data;
+                for (var i = 0; i < json.length; i++) {
+
+                    json[i].SeqNo = i + 1;
+
+                }
+                var tableJson = json;
+                pageFRInit(tableJson, columns);
+            },
+            error: function (data) {
+
+            }
+        });
+    }
+    function TriggerPopWindow() {
+        $(".CaseOfStayNameSelector .CaseOfStayNameDiv").each(function (index, element) {
+            var me = $(this);
+            var ele = $(element).parent();
+            var list = ele.find(".CaseOfStayNameList");
+            list.css("display", "none");
+            ele.click(function (ev) {
+                if (!(ev.target.className == "CaseOfStayNameSelector" || ev.target.offsetParent.className == "CaseOfStayNameSelector"))    //防止IE下选择某一项后又弹出选框
+                    return;
+                var top = ele.offset().top + ele.height();
+                var scrollTop = $(window).scrollTop();
+                var wHeight = $(window).height();
+                // 防止弹出框被挡住
+                if (top + 180 > (scrollTop + wHeight)) {
+                    top = ele.offset().top - 180 + "px";
+                }
+
+                var left = ele.offset().left + "px";
+                var width = ele.width() + "px";
+                var height = "102px";
+                list.css("top", top);
+                list.css("left", left);
+                list.css("width", width);
+                list.css("height", height);
+
+                popedCategoryList = list;
+                list.fadeIn("slow");
+            });
+            var label = $(element).find("[name=CaseOfStayNameLabel]");
+            var rowId = label.attr("data-rowId");
+            var checkbox = list.find("input:radio");
+            checkbox.change(function () {
+                var cates = "", Id = "";
+                list.find(":checked").each(function (i, e) {
+                    cates = $(e).attr("text-val")
+                    Id = $(e).val();
+                });
+                label.text(cates);
+                label.attr("val-data", Id);
+                list.css("display", "none");
+            });
+        })
+    }
+    // 页面初始化
+    function pageFRInit(tableJson, columnType) {
+        $.jgrid.gridUnload("#tbAddOrEditFeeRule");
+        $('#tbAddOrEditFeeRule').jqGrid({
+            datatype: "local",
+            data: tableJson,
+
+            gridComplete: function () {
+
+            },
+            loadComplete: function (json) {
+                    AddTraininRow();
+                $('#tbAddOrEditFeeRule').find("tr.jqgrow").each(function (i, ele) {
+                    $(ele).find("[aria-describedby='tbAddOrEditFeeRule_SeqNo']").html(i+1);
+                });
+
+                $('#tbAddOrEditFeeRule').find("tr").css("cursor", "pointer");
+                //$("#tbAddOrEditFeeRule tbody").on("click",
+                //   "tr:last",
+                //   function () {
+                //       AddTraininRow();
+                //   });
+                resizeFRGrid(); // 请求完成，使用分页插件
+                TriggerPopWindow();
+            },
+            colModel: columnType,
+
+            loadError: function (json, status, error) {
+                toastr.error(error);
+            },
+
+            width: "100%",
+            heiht: "100%",
+            autowidth: true,
+            rowNum: tableJson.length,
+            loadonce: true,
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+                jQuery('#tbAddOrEditFeeRule').jqGrid('editRow', rowid, true);
+                if (rowid && rowid !== lastselFR) {
+                    jQuery('#tbAddOrEditFeeRule').jqGrid('saveRow', lastselFR);
+                    jQuery('#tbAddOrEditFeeRule').jqGrid('restoreRow', lastselFR);
+                  
+                    lastselFR = rowid;
+                }
+
+            },
+            onSelectRow: function (rowid, status) {
+                if (lastselFR) {
+                    jQuery('#tbAddOrEditFeeRule').jqGrid('saveRow', lastselFR);
+                    jQuery('#tbAddOrEditFeeRule').jqGrid('restoreRow', lastselFR);
+                    var rowData = $("#tbAddOrEditFeeRule").jqGrid('getRowData', lastselFR);
+                    editDataFR[rowData.Id] = rowData;
+                }
+            },
+        });
+        $(window).resize(function () {
+
+            resizeFRGrid();
+        })
+    }
+    function AddTraininRow() {
+        if (lastselFR) {
+            jQuery('#tbAddOrEditFeeRule').jqGrid('saveRow', lastselFR);
+            jQuery('#tbAddOrEditFeeRule').jqGrid('restoreRow', lastselFR);
+        }
+        var newrowid = "";
+        for (var i = 1; i <= 32; i++) {
+            var n = Math.floor(Math.random() * 16.0).toString(16);
+            newrowid += n;
+            if ((i == 8) || (i == 12) || (i == 16) || (i == 20))
+                newrowid += "-";
+        }
+        var maxSeqNo = 1;
+        var ids = jQuery("#tbAddOrEditFeeRule").jqGrid('getDataIDs');
+        for (var j = 0; j < ids.length; j++) {
+            var row = $("#tbAddOrEditFeeRule").jqGrid('getRowData', ids[j]);
+            var SeqNo = parseInt(row.SeqNo);
+            if (SeqNo > maxSeqNo)
+                maxSeqNo = SeqNo;
+
+        }
+          
+        var dataRow = {
+            Id: "00000000-0000-0000-0000-000000000000",
+            PullutionType: "",
+            PullutionTypeName:"",
+            PullutionSourceName: "",
+            NCoefficient: "",
+            PCoefficient:"",
+            CodCoefficient: "",
+            LevelCoefficient:"",
+            SeqNo: maxSeqNo + 1,
+            IsNewFlag:true,
+        } 
+        //将新添加的行插入到第一列  
+        $("#tbAddOrEditFeeRule").jqGrid("addRowData", newrowid, dataRow, "first");
+        $('#tbAddOrEditFeeRule').find("tr.jqgrow").each(function (i, ele) {
+            $(ele).find("[aria-describedby='tbAddOrEditFeeRule_SeqNo']").html(i+1);
+        });
+        lastselFR = newrowid;
+        TriggerPopWindow();
+    }
+    var $AddOrEditFeeRuleBody = $("#EditFeeRule .modal-body");
+    function saveRule() {
+        var validata = true;
+        jQuery('#tbAddOrEditFeeRule').jqGrid('saveRow', lastselFR);
+        jQuery('#tbAddOrEditFeeRule').jqGrid('restoreRow', lastselFR);
+        var RuleRows = [];
+        var o = $("#tbAddOrEditFeeRule tbody tr.jqgrow");
+        $.each(o, function (i, n) {
+            var Id = $(n).find("td[aria-describedby=tbAddOrEditFeeRule_Id]").text();
+            var PullutionType = $($(n).find(".CaseOfStayNameSelector")[0]).find("[name=CaseOfStayNameLabel]").attr("val-data");
+            var PullutionSourceName = $(n).find("td[aria-describedby=tbAddOrEditFeeRule_PullutionSourceName]").text().trim();
+            var NCoefficient = $(n).find("td[aria-describedby=tbAddOrEditFeeRule_NCoefficient]").text().trim();
+            var PCoefficient = $(n).find("td[aria-describedby=tbAddOrEditFeeRule_PCoefficient]").text().trim();
+            var CodCoefficient = $(n).find("td[aria-describedby=tbAddOrEditFeeRule_CodCoefficient]").text().trim();
+            var LevelCoefficient = $(n).find("td[aria-describedby=tbAddOrEditFeeRule_LevelCoefficient]").text().trim();
+            var IsNewFlag = $(n).find("td[aria-describedby=tbAddOrEditFeeRule_IsNewFlag]").text().trim();
+            if (IsNewFlag == "true")
+                Id = "00000000-0000-0000-0000-000000000000";
+            if (!validata)
+                return;
+            var row = {
+                Id: Id,
+                PullutionType: PullutionType,
+                PullutionSourceName: PullutionSourceName,
+                NCoefficient: NCoefficient,
+                PCoefficient: PCoefficient,
+                CodCoefficient: CodCoefficient,
+                LevelCoefficient: LevelCoefficient,
+                CreateUser: "2B0217FD-A6E9-49DB-AE85-6631F3E84BD7",
+                CreateTime: new Date(),
+                LastModifyTime: new Date(),
+                LastModifyUser: "2B0217FD-A6E9-49DB-AE85-6631F3E84BD7"
+            };
+
+            RuleRows.push(row);
+        });
+       
+        $.ajax({
+            url: "/AP_LiveStockBreeding/SaveOrUpdateLiveStockRule",
+            data: { model: JSON.stringify(RuleRows) },
+            cache: false,
+            type: "POST",
+            async: true,
+            dataType: 'json',
+            success: function (data) {
+                if (data.Result) {
+                    alert(data.Content);
+                } else {
+                    alert("保存失败");
+                }
+            },
+            error: function (errorData) {
+                alert("保存失败");
+            },
+            complete: function () {
+                disLoad();
+            }
+        })
+    }
+
+
+  
+  
+</script>
+

@@ -7,3 +7,12 @@ C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPoin
 C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\obj\Debug\Dao.dll
 C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\obj\Debug\Dao.pdb
 C:\Users\Administrator\Documents\Visual Studio 2012\Projects\AugricultureNonPointSourcePollution\Dao\obj\Debug\Dao.csprojResolveAssemblyReference.cache
+E:\work\git\农业面源污染基本信息数据库构建\AgricultureNoPointPulutionBasicInfo\src\Dao\bin\Debug\Dao.dll.config
+E:\work\git\农业面源污染基本信息数据库构建\AgricultureNoPointPulutionBasicInfo\src\Dao\bin\Debug\Dao.dll
+E:\work\git\农业面源污染基本信息数据库构建\AgricultureNoPointPulutionBasicInfo\src\Dao\bin\Debug\Dao.pdb
+E:\work\git\农业面源污染基本信息数据库构建\AgricultureNoPointPulutionBasicInfo\src\Dao\bin\Debug\EntityFramework.dll
+E:\work\git\农业面源污染基本信息数据库构建\AgricultureNoPointPulutionBasicInfo\src\Dao\bin\Debug\EntityFramework.xml
+E:\work\git\农业面源污染基本信息数据库构建\AgricultureNoPointPulutionBasicInfo\src\Dao\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\work\git\农业面源污染基本信息数据库构建\AgricultureNoPointPulutionBasicInfo\src\Dao\obj\Debug\Dao.csprojResolveAssemblyReference.cache
+E:\work\git\农业面源污染基本信息数据库构建\AgricultureNoPointPulutionBasicInfo\src\Dao\obj\Debug\Dao.dll
+E:\work\git\农业面源污染基本信息数据库构建\AgricultureNoPointPulutionBasicInfo\src\Dao\obj\Debug\Dao.pdb

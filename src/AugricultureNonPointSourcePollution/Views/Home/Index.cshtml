@@ -51,19 +51,59 @@
 <div class="ui-layout-west">
     <ul id="menu">
 
-  <li tag="IndexAP_LiveStockBreeding"><div>畜禽养殖</div></li>
-  <li tag="IndexAP_ArgricultureLive"><div>农村生活</div></li>
-          <li tag="IndexAP_AqualCulture"><div>水产养殖</div></li>
-          <li tag="IndexAP_PlantNoPointSource"><div>种植业源</div></li>
+  <li tag="IndexAP_LiveStockBreeding"><div>畜禽养殖</div>
+      <ul class="AP_LiveStockBreeding">
+          <li tag="IndexAP_LiveStockBreeding">畜禽养殖现状</li>
+           <li tag="LiveStockBreedingCoeffecient">污染源排污系数</li>
+            <li tag="LiveStockBreedingPullutionReport">畜禽养殖源污染物负荷</li>
+            <li>数据导入导出</li>
+      </ul>
+
+  </li>
+  <li tag="IndexAP_ArgricultureLive"><div>农村生活</div>
+        <ul class="AP_ArgricultureLive">
+          <li tag="IndexAP_ArgricultureLive">农村生活现状</li>
+           <li>污染源排污系数</li>
+            <li tag="ArgricultureLivePullutionReport">农村生活源污染物排放量</li>
+            <li>数据导入导出</li>
+      </ul>
+  </li>
+          <li tag="IndexAP_AqualCulture"><div>水产养殖</div>
+                <ul class="AP_AqualCulture">
+          <li tag="IndexAP_AqualCulture">水产养殖现状</li>
+           <li>污染源排污系数</li>
+            <li tag="AP_AqualCultureReport">水产养殖源污染物负荷</li>
+            <li>数据导入导出</li>
+      </ul>
+          </li>
+          <li tag="IndexAP_PlantNoPointSource"><div>种植业源</div>
+                <ul  class="AP_PlantNoPointSource">
+          <li tag="IndexAP_PlantNoPointSource">种植业源现状</li>
+           <li>污染源排污系数</li>
+            <li tag="PlantNoPointSourceReport">作物秸秆污染物排放量</li>
+                     <li tag="FetilizerReport">农田化肥污染物排放量</li>
+            <li>数据导入导出</li>
+      </ul>
+          </li>
+        
     </ul>
     </div>
      <script>
          $(function () {
              $("#menu").menu();
-             $("#ifmContent").attr("src", "/Home/IndexAP_PlantNoPointSource");
-             $("#menu li").click(function (e) {
-                 $("#ifmContent").attr("src", "/Home/"+$(this).attr("tag"));
-             });
+             $("#ifmContent").attr("src", "/AP_PlantNoPointSource/IndexAP_PlantNoPointSource");
+             $("ul.AP_LiveStockBreeding li").click(function (e) {
+                 $("#ifmContent").attr("src", "/AP_LiveStockBreeding/" + $(this).attr("tag"));
+             })
+             $("ul.AP_ArgricultureLive li").click(function (e) {
+                 $("#ifmContent").attr("src", "/AP_ArgricultureLive/" + $(this).attr("tag"));
+             })
+             $("ul.AP_AqualCulture li").click(function (e) {
+                 $("#ifmContent").attr("src", "/AP_AqualCulture/" + $(this).attr("tag"));
+             })
+             $("ul.AP_PlantNoPointSource li").click(function (e) {
+                 $("#ifmContent").attr("src", "/AP_PlantNoPointSource/" + $(this).attr("tag"));
+             })
          });
   </script>
   <style>

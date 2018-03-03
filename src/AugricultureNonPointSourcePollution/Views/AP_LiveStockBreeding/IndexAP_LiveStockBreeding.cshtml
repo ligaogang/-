@@ -1,0 +1,228 @@
+﻿@{
+    ViewBag.Title = "IndexAP_LiveStockBreeding";
+    Layout = "../Shared/_LayoutBody.cshtml";
+    }
+<style>
+    .ui-search-toolbar {
+    display:none;
+    }
+    td.text-middle {
+    text-align:center !important;
+    vertical-align:middle !important;
+    }
+    th.ui-th-column-header.ui-th-ltr {
+    border-bottom:1px solid #ddd !important;
+    }
+    th.ui-th-column.ui-th-ltr {
+     border-bottom:1px solid #ddd !important;
+    }
+</style>
+    <form class="form form-horizontal form-custom-default"style="width:98%;" id="FormAssesOfYearFinal">
+         <div class="form-group">
+             <div class="col col-sm-12 pull-right">
+                <button type="button" class="btn-new-add btn-custom-add btnAdd" onclick="addLiveStock()">增加</button>
+                
+            </div>
+         </div>
+            <div class="form-group">
+          <div class="col col-sm-1"><label class="label-custom-default pull-right">年份：</label></div>
+                <div class="col col-sm-2"> <input name="Year" type="text" class="form-control" style="height:30px;line-height:30px;" placeholder="测试时间",
+                onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy',onpicked:beginSearch()})" readonly="true" /></div>
+       
+                </div> <div class="form-group">
+            <div class="col col-sm-12">
+
+<table class="table table-custom-default table-line-height40" id="AP_PlantNoPointSourceList"></table>
+            
+                </div></div>
+    </form>
+@{Html.RenderAction("EditLiveStockBreeding", "AP_LiveStockBreeding", new { Area = "" });}
+<script>
+    function resizeGrid() {
+        $(window).unbind("onresize");
+        $("#AP_PlantNoPointSourceList").setGridHeight($(window).height()-140);
+        $(window).bind("onresize", this);
+    }
+    $(function () {
+        $("#FormAssesOfYearFinal").find("[name=Year]").val(new Date(2016, 1, 1).getFullYear());
+        beginSearch();
+    })
+    var col = [
+     { name: "Id", hidden: true, key: true },
+     {
+         label: "序号",
+         classes:"text-middle",
+         name: "SeqNo",
+         sortable: false,
+         colmenu: false,
+         sortable: false,
+         width: 100,
+         colmenu: false
+     },
+     {
+         label: "区县",
+         name: "AreaName",
+         classes: "text-middle",
+         sortable: false,
+         colmenu: false,
+         classes: "text-middle",
+         isVisible: true,
+         width: 100
+
+
+     },
+     {
+         label: "大牲畜",
+         index: "ALargeAnimal",
+         name: "ALargeAnimal",
+         classes: "text-middle",
+         sortable: false,
+         width: 120,
+         isVisible: true,
+         coloptions: { sorting: true, columns: false,onshow:function(){alert("fasdf")}, filtering: true, seraching: true, grouping: false, freeze: true }, searchoptions: { searchOperMenu: false, sopt: ['eq', 'lt', 'gt'] },
+     },
+           {
+               label: "猪",
+               index: "Pig",
+               name: "Pig",
+               sortable: false,
+               classes: "text-middle",
+               colmenu: false,
+               width: 100,
+               isVisible: true,
+               coloptions: { sorting: true, columns: false, filtering: true, seraching: true, grouping: false, freeze: true }, searchoptions: { searchOperMenu: false, sopt: ['eq', 'lt', 'gt'] },
+           },
+                 {
+                     label: "羊",
+                     index: "sheep",
+                     name: "sheep",
+                     classes: "text-middle",
+                     sortable: false,
+                     colmenu: false,
+                     width: 100,
+                     isVisible: true,
+                     coloptions: { sorting: true, columns: false, filtering: true, seraching: true, grouping: false, freeze: true }, searchoptions: { searchOperMenu: false, sopt: ['eq', 'lt', 'gt'] },
+                 },
+                       {
+                           label: "家禽",
+                           index: "poultry",
+                           name: "poultry",
+                           sortable: false,
+                           classes: "text-middle",
+                           colmenu: false,
+                           width: 100,
+                           isVisible: true,
+                           coloptions: { sorting: true, columns: false, filtering: true, seraching: true, grouping: false, freeze: true }, searchoptions: { searchOperMenu: false, sopt: ['eq', 'lt', 'gt'] },
+                       }, {
+                           label: "操作",
+                           name: "Operations",
+                           fixed: true,
+                           width: 140,
+                           formatter: function (data, type, row, meta) {
+                               var html = "";
+                                   html += "<button type='button' class='btn-tab-approvess btn-custom-default edit' onclick=\"deleteById('" +
+                                       row.Id +
+                                       "')\" >删除</button>";
+
+                               html +=
+                                   "<button type='button' class='btn-tab-edit btn-custom-default edit' onclick=\"EditById('" +
+                                   row.Id +
+                                   "')\" >编辑</button>";
+
+                               html +=
+                                   "<button type='button' class='btn-tab-edit btn-custom-default edit' onclick=\"Show('" +
+                                   row.Id +
+                                   "')\" >查看</button>";
+
+                               return html;
+                           },
+                           colmenu: false,
+                       },
+
+    ];
+    function addLiveStock() {
+        $("#EditLiveStockBreeding").modal("show");
+    }
+    function beginSearch() {
+        var Year = $("#FormAssesOfYearFinal").find("[name=Year]").val();
+        $.ajax({
+            url: "/AP_LiveStockBreeding/GetAP_LiveStockBreeding",
+            data: { Year: Year },
+            async: true,
+            dataType: 'json',
+            type: "POST",
+            success: function (json) {
+                var SeqNum = 1;
+                if (json.Result) {
+                    $.each(json.Entity, function (i, n) {
+                        json.Entity[i].SeqNo = SeqNum++;
+                    });
+                    page_init(json.Entity, col)
+                } else {
+                    bAlert("获取信息失败");
+                }
+            },
+            error: function (errorData) {
+            },
+            complete: function () {
+            }
+        });
+    }
+    function page_init(tableJson, columnType) {
+        $.jgrid.gridUnload("#AP_PlantNoPointSourceList");
+        $('#AP_PlantNoPointSourceList').jqGrid({
+            datatype: "local",
+            data: tableJson,
+
+            gridComplete: function () {
+
+            },
+            loadComplete: function (json) {
+                resizeGrid();
+            },
+            colModel: columnType,
+
+            loadError: function (json, status, error) {
+            },
+
+            width: "100%",
+            heiht: "100%",
+            autowidth: true,
+            colMenu: true,
+            rowNum: tableJson.length,
+            loadonce: true,
+            ondblClickRow: function (rowid, iRow, iCol, e) {
+
+
+            },
+            onSelectRow: function (rowid, status) {
+               
+            },
+        });
+        $(window).resize(function () {
+
+            resizeGrid();
+        })
+    }
+    function deleteById(Id) {
+        $.ajax({
+            url: "/AP_LiveStockBreeding/DeleteById",
+            data: { Id: Id },
+            async: true,
+            dataType: 'json',
+            type: "POST",
+            success: function (json) {
+                if (json.Result) {
+                    toastr.success(json.Content);
+                } else {
+                    toastr.error("删除失败");
+                }
+                beginSearch();
+            },
+            error: function (errorData) {
+            },
+            complete: function () {
+            }
+        });
+    }
+</script>

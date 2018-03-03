@@ -116,5 +116,44 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AP_LiveStockBreedingCoeffecient">
+      <EntityTypeMapping TypeName="AugricultureNonPointSourcePollutionModel.AP_LiveStockBreedingCoeffecient">
+        <MappingFragment StoreEntitySet="AP_LiveStockBreedingCoeffecient">
+          <ScalarProperty Name="LevelCoefficient" ColumnName="LevelCoefficient" />
+          <ScalarProperty Name="LastModifyUser" ColumnName="LastModifyUser" />
+          <ScalarProperty Name="LastModifyTime" ColumnName="LastModifyTime" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CodCoefficient" ColumnName="CodCoefficient" />
+          <ScalarProperty Name="PCoefficient" ColumnName="PCoefficient" />
+          <ScalarProperty Name="NCoefficient" ColumnName="NCoefficient" />
+          <ScalarProperty Name="PullutionType" ColumnName="PullutionType" />
+          <ScalarProperty Name="PullutionSource" ColumnName="PullutionSource" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AP_PullutionSum">
+      <EntityTypeMapping TypeName="AugricultureNonPointSourcePollutionModel.AP_PullutionSum">
+        <MappingFragment StoreEntitySet="AP_PullutionSum">
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="LastModifyTime" ColumnName="LastModifyTime" />
+          <ScalarProperty Name="LastModifyUser" ColumnName="LastModifyUser" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="SumOfCod" ColumnName="SumOfCod" />
+          <ScalarProperty Name="SumOfP" ColumnName="SumOfP" />
+          <ScalarProperty Name="SumOfN" ColumnName="SumOfN" />
+          <ScalarProperty Name="PullutionSource" ColumnName="PullutionSource" />
+          <ScalarProperty Name="PullutionType" ColumnName="PullutionType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
